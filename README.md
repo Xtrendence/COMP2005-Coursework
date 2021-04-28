@@ -14,8 +14,7 @@ You can either download an executable JAR file from the [Releases](https://githu
 
 ### External Libraries
 
-|Library|Author                                               |
-|-------|-----------------------------------------------------|
-|JUnit  |[JUnit Team](https://github.com/junit-team/junit4)   |
-|Mockito|[Mockito Team](https://github.com/mockito/mockito)   |
-|Gson   |[Google](https://github.com/google/gson)             |
+|Library|Author                                            |
+|-------|--------------------------------------------------|
+|JUnit  |[JUnit Team](https://github.com/junit-team/junit4)|
+|Gson   |[Google](https://github.com/google/gson)          |
