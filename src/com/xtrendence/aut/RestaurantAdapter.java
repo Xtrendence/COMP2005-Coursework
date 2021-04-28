@@ -1,7 +1,13 @@
 package com.xtrendence.aut;
 
 public class RestaurantAdapter {
-    public Restaurant[] adapt(String json) {
+    private String json;
+    public RestaurantAdapter(String json) {
+        this.json = json;
+    }
+
+    public Restaurant[] adapt() {
+        System.out.println(json);
         return null;
     }
 }

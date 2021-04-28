@@ -10,12 +10,12 @@ public class Restaurant {
     private String neighborhood;
     private String photograph;
     private String address;
-    private float[] coordinates;
+    private double[] coordinates;
     private String cuisine;
     private HashMap<String, Date> hours;
     private Review[] reviews;
 
-    public Restaurant(int id, String name, int score, String neighborhood, String photograph, String address, float[] coordinates, String cuisine, HashMap<String, Date> hours, Review[] reviews) {
+    public Restaurant(int id, String name, int score, String neighborhood, String photograph, String address, double[] coordinates, String cuisine, HashMap<String, Date> hours, Review[] reviews) {
         this.id = id;
         this.name = name;
         this.score = score;
@@ -52,7 +52,7 @@ public class Restaurant {
         return address;
     }
 
-    public float[] getCoordinates() {
+    public double[] getCoordinates() {
         return coordinates;
     }
 
@@ -92,7 +92,7 @@ public class Restaurant {
         this.address = address;
     }
 
-    public void setCoordinates(float[] coordinates) {
+    public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
 

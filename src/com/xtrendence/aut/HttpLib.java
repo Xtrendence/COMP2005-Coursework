@@ -17,10 +17,16 @@ public class HttpLib implements IHttpLib {
             return new Response(code, null);
         }
 
+        StringBuilder builder = new StringBuilder();
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String data = reader.readLine();
+
+        String line;
+        while((line = reader.readLine()) != null) {
+            builder.append(line);
+        }
         reader.close();
 
-        return new Response(code, data);
+        return new Response(code, builder.toString());
     }
 }

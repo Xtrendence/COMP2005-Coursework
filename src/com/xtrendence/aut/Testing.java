@@ -2,6 +2,8 @@ package com.xtrendence.aut;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Testing extends JFrame {
     private JTextArea outputUnitTests;
@@ -11,6 +13,7 @@ public class Testing extends JFrame {
     private JButton buttonStartFunctionalTests;
     private JTextArea outputIntegrationTests;
     private JTextArea outputFunctionalTests;
+    private JCheckBox checkboxMock;
 
     public Testing() {
         this.setSize(1320, 720);
@@ -45,6 +48,15 @@ public class Testing extends JFrame {
         buttonStartFunctionalTests.setOpaque(true);
         buttonStartFunctionalTests.setBackground(new Color(0,125,255));
         buttonStartFunctionalTests.setForeground(new Color(255,255,255));
+
+        buttonStartFunctionalTests.addActionListener(actionEvent -> {
+            FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
+            try {
+                testing.loadRestuarants();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void main(String[] args) {
