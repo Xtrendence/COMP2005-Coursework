@@ -7,7 +7,6 @@ public class RestaurantAdapter {
     }
 
     public Restaurant[] adapt() {
-        System.out.println(json);
         return null;
     }
 }

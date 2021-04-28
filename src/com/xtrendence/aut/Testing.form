@@ -22,6 +22,8 @@
             <properties>
               <background color="-983297"/>
               <foreground color="-1"/>
+              <lineWrap value="true"/>
+              <wrapStyleWord value="true"/>
             </properties>
           </component>
         </children>
@@ -94,6 +96,8 @@
             <properties>
               <background color="-983297"/>
               <foreground color="-1"/>
+              <lineWrap value="true"/>
+              <wrapStyleWord value="true"/>
             </properties>
           </component>
         </children>
@@ -112,6 +116,8 @@
             <properties>
               <background color="-983297"/>
               <foreground color="-1"/>
+              <lineWrap value="true"/>
+              <wrapStyleWord value="true"/>
             </properties>
           </component>
         </children>
@@ -185,6 +191,7 @@
           <grid row="3" column="16" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <selected value="true"/>
           <text value="Mock Test"/>
         </properties>
       </component>

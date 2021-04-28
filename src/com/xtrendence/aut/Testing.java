@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Testing extends JFrame {
+    public static Testing instance;
     private JTextArea outputUnitTests;
     private JButton buttonStartUnitTests;
     private JPanel panelMain;
@@ -61,7 +62,20 @@ public class Testing extends JFrame {
 
     public static void main(String[] args) {
         Testing testing = new Testing();
+        instance = testing;
         testing.setVisible(true);
         testing.setContentPane(testing.panelMain);
+    }
+
+    public static void outputUnit(String text) {
+        instance.outputUnitTests.setText(instance.outputUnitTests.getText() + text + "\n\n");
+    }
+
+    public static void outputIntegration(String text) {
+        instance.outputIntegrationTests.setText(instance.outputIntegrationTests.getText() + text + "\n\n");
+    }
+
+    public static void outputFunctional(String text) {
+        instance.outputFunctionalTests.setText(instance.outputFunctionalTests.getText() + text + "\n\n");
     }
 }

@@ -12,6 +12,8 @@ public class FunctionalTesting {
         int code;
         String json;
 
+        Testing.outputFunctional("Fetching JSON...");
+
         if(mockTest) {
             MockHttpLib mockHttpLib = new MockHttpLib();
             Response response = mockHttpLib.call("");
@@ -24,6 +26,13 @@ public class FunctionalTesting {
             json = response.getData();
         }
 
-        this.restaurants = new RestaurantAdapter(json).adapt();
+        if(json != null && !json.equals("")) {
+            Testing.outputFunctional("Fetched JSON");
+            Testing.outputFunctional(json.substring(0, 127) + "...\n(Only showing first 128 characters)");
+            Testing.outputFunctional("Parsing JSON...");
+            this.restaurants = new RestaurantAdapter(json).adapt();
+        } else {
+            Testing.outputFunctional("Couldn't fetch JSON.");
+        }
     }
 }
