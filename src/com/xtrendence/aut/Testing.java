@@ -14,7 +14,6 @@ public class Testing extends JFrame {
     private JButton buttonStartIntegrationTests;
     private JButton buttonStartFunctionalTests;
     private JTextPane outputTests;
-    private JCheckBox checkboxMock;
     private JScrollPane scrollOutput;
 
     public Testing() {
@@ -46,13 +45,9 @@ public class Testing extends JFrame {
             outputTests.setText("");
 
             try {
-                FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
+                outputText("--- Starting Functional Testing w/ Real API ---", Color.BLUE);
 
-                if(checkboxMock.isSelected()) {
-                    outputText("--- Starting Test w/ Mock API ---", Color.BLUE);
-                } else {
-                    outputText("--- Starting Test w/ Real API ---", Color.BLUE);
-                }
+                FunctionalTesting testing = new FunctionalTesting();
 
                 testing.testGetByCuisine();
                 testing.testGetByCuisineAndNeighborhood();
@@ -62,6 +57,14 @@ public class Testing extends JFrame {
                 testing.testGetByNeighborhoodAndRating();
                 testing.testGetByNeighborhoodAndSortByScore();
                 testing.testGetByVicinity();
+
+                outputText("--- Finished Functional Testing w/ Real API ---", Color.BLUE);
+                outputText("--- Code Coverage & Results ---", Color.MAGENTA);
+                outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
+                outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
+                outputText("Methods Passed: " + testing.passedMethods, new Color(0, 150, 0));
+                outputText("Methods Failed: " + testing.failedMethods, Color.RED);
+
             } catch(Exception e) {
                 outputText(e.getMessage(), Color.RED);
                 e.printStackTrace();

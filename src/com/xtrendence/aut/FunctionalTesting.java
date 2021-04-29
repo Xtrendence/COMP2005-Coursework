@@ -3,6 +3,7 @@ package com.xtrendence.aut;
 import org.junit.Test;
 
 import java.awt.*;
+import java.lang.reflect.Method;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,40 +11,38 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 public class FunctionalTesting {
-    boolean mockTest;
+    public int overallMethods;
+    public int testedMethods;
+    public int passedMethods;
+    public int failedMethods;
     String data;
     Restaurant[] restaurants;
 
-    public FunctionalTesting(boolean mockTest) throws Exception {
-        this.mockTest = mockTest;
+    public FunctionalTesting() throws Exception {
+        Class thisClass = FunctionalTesting.class;
+        Method[] methods = thisClass.getDeclaredMethods();
 
-        if(this.restaurants == null || this.data == null || this.data.equals("")) {
-            loadRestuarants();
-        }
+        this.overallMethods = methods.length;
+        this.testedMethods = 0;
+        this.passedMethods = 0;
+        this.failedMethods = 0;
+
+        loadRestuarants();
     }
 
     @Test
     public void loadRestuarants() throws Exception {
-        int code;
-        String json;
+        testedMethods++;
 
-        if(mockTest) {
-            MockHttpLib mockHttpLib = new MockHttpLib();
-            Testing.outputText("Fetching JSON from Mock Object...", Color.BLUE);
-            Response response = mockHttpLib.call("");
-            code = response.getCode();
-            json = response.getData();
-        } else {
-            RestaurantSearch restaurantSearch = new RestaurantSearch();
-            Testing.outputText("Fetching JSON from " + restaurantSearch.api + "...", Color.BLUE);
-            code = restaurantSearch.loadRestaurants();
-            json = restaurantSearch.getData();
-        }
+        RestaurantSearch restaurantSearch = new RestaurantSearch();
+        Testing.outputText("Fetching JSON from " + restaurantSearch.api + "...", Color.BLUE);
+        int code = restaurantSearch.loadRestaurants();
+        String json = restaurantSearch.getData();
 
         if(code == 200) {
             if (json != null && !json.equals("")) {
                 Testing.outputText("Fetched JSON", Color.BLUE);
-                Testing.outputText(json.substring(0, 127) + "...\n(Only showing first 128 characters)", Color.BLACK);
+                Testing.outputText(json.substring(0, 255) + "...\n(Only showing the first 256 characters)", Color.BLACK);
                 Testing.outputText("Parsing JSON...", Color.BLUE);
                 Testing.outputText("Checking Restaurant Names...", Color.BLUE);
                 this.restaurants = new RestaurantAdapter(json).adapt();
@@ -59,13 +58,16 @@ public class FunctionalTesting {
 
                     Testing.outputText("Expected: " + expected, Color.BLACK);
                     Testing.outputText("Actual: " + actual, Color.BLACK);
-                    if(actual.equalsIgnoreCase(expected)) {
-                        Testing.outputText("Test Passed", new Color(0, 150, 0));
-                    } else {
-                        Testing.outputText("Test Failed", Color.RED);
-                    }
 
-                    assertEquals(expected, actual);
+                    try {
+                        passedMethods++;
+                        assertEquals(expected, actual);
+                        Testing.outputText("Test Passed", new Color(0, 150, 0));
+                    } catch(AssertionError e) {
+                        failedMethods++;
+                        Testing.outputText("Test Failed", Color.RED);
+                        e.printStackTrace();
+                    }
                 } else {
                     Testing.outputText("Couldn't parse JSON.", Color.RED);
                 }
@@ -77,6 +79,8 @@ public class FunctionalTesting {
 
     @Test
     public void testGetByCuisine() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByCuisine("Asian");
         String[] names = new String[restaurantArray.length];
@@ -91,17 +95,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByCuisine(\"Asian\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByCuisineAndNeighborhood() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByCuisineAndNeighborhood("Manhattan", "Asian");
         String[] names = new String[restaurantArray.length];
@@ -116,17 +125,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByCuisineAndNeighborhood(\"Manhattan\", \"Asian\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByDayAndHour() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByDayAndHour("Saturday", "5:30 pm");
         String[] names = new String[restaurantArray.length];
@@ -143,17 +157,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByDayAndHour(\"Saturday\", \"5:30 pm\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByNeighborhood() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByNeighborhood("Manhattan");
         String[] names = new String[restaurantArray.length];
@@ -168,17 +187,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByNeighborhood(\"Manhattan\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByRating() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByRating(4.5);
         String[] names = new String[restaurantArray.length];
@@ -193,17 +217,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByRating(4.5)", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByNeighborhoodAndRating() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByNeighborhoodAndRating("Manhattan", 3.85);
         String[] names = new String[restaurantArray.length];
@@ -218,17 +247,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByNeighborhoodAndRating(\"Manhattan\", 3.85)", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByNeighborhoodAndSortByScore() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByNeighborhoodAndSortByScore("Manhattan");
         String[] names = new String[restaurantArray.length];
@@ -243,17 +277,22 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByNeighborhoodAndSortByScore(\"Manhattan\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void testGetByVicinity() {
+        testedMethods++;
+
         RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
         Restaurant[] restaurantArray = restaurantSearch.getByVicinity("Brooklyn");
         String[] names = new String[restaurantArray.length];
@@ -268,12 +307,15 @@ public class FunctionalTesting {
         Testing.outputText("Testing Method: getByVicinity(\"Brooklyn\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
-        if(actual.equalsIgnoreCase(expected)) {
-            Testing.outputText("Test Passed", new Color(0, 150, 0));
-        } else {
-            Testing.outputText("Test Failed", Color.RED);
-        }
 
-        assertEquals(expected, actual);
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
     }
 }
