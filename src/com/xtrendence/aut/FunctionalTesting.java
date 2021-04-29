@@ -109,11 +109,47 @@ public class FunctionalTesting {
     }
 
     public void testGetByRating() {
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByRating(4.5);
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
 
+        String expected = "Casa Enrique";
+        String actual = String.join(", ", names);
+
+        Testing.outputFunctional("------------", Color.BLACK);
+        Testing.outputFunctional("Testing Method: getByRating(4.5)", Color.BLUE);
+        Testing.outputFunctional("Expected: " + expected, Color.BLACK);
+        Testing.outputFunctional("Actual: " + actual, Color.BLACK);
+        if(actual.equalsIgnoreCase(expected)) {
+            Testing.outputFunctional("Test Passed", new Color(0, 150, 0));
+        } else {
+            Testing.outputFunctional("Test Failed", Color.RED);
+        }
     }
 
     public void testGetByNeighborhoodAndRating() {
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhoodAndRating("Manhattan", 4);
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
 
+        String expected = "Katz's Delicatessen, Superiority Burger, The Dutch";
+        String actual = String.join(", ", names);
+
+        Testing.outputFunctional("------------", Color.BLACK);
+        Testing.outputFunctional("Testing Method: getByNeighborhoodAndRating(\"Manhattan\", 4)", Color.BLUE);
+        Testing.outputFunctional("Expected: " + expected, Color.BLACK);
+        Testing.outputFunctional("Actual: " + actual, Color.BLACK);
+        if(actual.equalsIgnoreCase(expected)) {
+            Testing.outputFunctional("Test Passed", new Color(0, 150, 0));
+        } else {
+            Testing.outputFunctional("Test Failed", Color.RED);
+        }
     }
 
     public void testGetByNeighborhoodAndSortByScore() {
