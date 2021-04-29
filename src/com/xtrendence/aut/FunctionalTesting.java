@@ -20,19 +20,20 @@ public class FunctionalTesting {
             code = response.getCode();
             json = response.getData();
         } else {
-            HttpLib httpLib = new HttpLib();
-            Response response = httpLib.call("http://intelligent-social-robots-ws.com/restaurant-data.json");
-            code = response.getCode();
-            json = response.getData();
+            RestaurantSearch restaurantSearch = new RestaurantSearch();
+            code = restaurantSearch.loadRestaurants();
+            json = restaurantSearch.getData();
         }
 
-        if(json != null && !json.equals("")) {
-            Testing.outputFunctional("Fetched JSON");
-            Testing.outputFunctional(json.substring(0, 127) + "...\n(Only showing first 128 characters)");
-            Testing.outputFunctional("Parsing JSON...");
-            this.restaurants = new RestaurantAdapter(json).adapt();
-        } else {
-            Testing.outputFunctional("Couldn't fetch JSON.");
+        if(code == 200) {
+            if (json != null && !json.equals("")) {
+                Testing.outputFunctional("Fetched JSON");
+                Testing.outputFunctional(json.substring(0, 127) + "...\n(Only showing first 128 characters)");
+                Testing.outputFunctional("Parsing JSON...");
+                this.restaurants = new RestaurantAdapter(json).adapt();
+            } else {
+                Testing.outputFunctional("Couldn't fetch JSON.");
+            }
         }
     }
 }

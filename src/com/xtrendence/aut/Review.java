@@ -1,14 +1,15 @@
 package com.xtrendence.aut;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Review {
     private String name;
-    private Date date;
+    private LocalDate date;
     private int rating;
     private String comments;
 
-    public Review(String name, Date date, int rating, String comments) {
+    public Review(String name, LocalDate date, int rating, String comments) {
         this.name = name;
         this.date = date;
         this.rating = rating;
@@ -19,7 +20,7 @@ public class Review {
         return name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -35,7 +36,7 @@ public class Review {
         this.name = name;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

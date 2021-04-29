@@ -15,6 +15,9 @@ public class Testing extends JFrame {
     private JTextArea outputIntegrationTests;
     private JTextArea outputFunctionalTests;
     private JCheckBox checkboxMock;
+    private JScrollPane scrollUnit;
+    private JScrollPane scrollIntegration;
+    private JScrollPane scrollFunctional;
 
     public Testing() {
         this.setSize(1320, 720);
@@ -53,6 +56,11 @@ public class Testing extends JFrame {
         buttonStartFunctionalTests.addActionListener(actionEvent -> {
             FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
             try {
+                if(checkboxMock.isSelected()) {
+                    outputFunctional("--- Starting Test w/ Mock API ---");
+                } else {
+                    outputFunctional("--- Starting Test w/ Real API ---");
+                }
                 testing.loadRestuarants();
             } catch(Exception e) {
                 e.printStackTrace();
@@ -69,13 +77,19 @@ public class Testing extends JFrame {
 
     public static void outputUnit(String text) {
         instance.outputUnitTests.setText(instance.outputUnitTests.getText() + text + "\n\n");
+        JScrollBar scrollBar = instance.scrollUnit.getVerticalScrollBar();
+        scrollBar.setValue(scrollBar.getMaximum());
     }
 
     public static void outputIntegration(String text) {
         instance.outputIntegrationTests.setText(instance.outputIntegrationTests.getText() + text + "\n\n");
+        JScrollBar scrollBar = instance.scrollIntegration.getVerticalScrollBar();
+        scrollBar.setValue(scrollBar.getMaximum());
     }
 
     public static void outputFunctional(String text) {
         instance.outputFunctionalTests.setText(instance.outputFunctionalTests.getText() + text + "\n\n");
+        JScrollBar scrollBar = instance.scrollFunctional.getVerticalScrollBar();
+        scrollBar.setValue(scrollBar.getMaximum());
     }
 }
