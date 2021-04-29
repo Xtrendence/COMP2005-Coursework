@@ -37,12 +37,12 @@ public class FunctionalTesting {
                 Testing.outputFunctional("Parsing JSON...");
                 this.restaurants = new RestaurantAdapter(json).adapt();
                 if(this.restaurants.length > 0) {
-//                    System.out.println(Arrays.toString(this.restaurants));
-//                    String[] names = new String[restaurants.length];
-//                    for(int i = 0; i < this.restaurants.length; i++) {
-//                        names[i] = restaurants[i].getName();
-//                    }
-//                    Testing.outputFunctional(String.join(", ", names));
+                    System.out.println(Arrays.toString(this.restaurants));
+                    String[] names = new String[restaurants.length];
+                    for(int i = 0; i < this.restaurants.length; i++) {
+                        names[i] = restaurants[i].getName();
+                    }
+                    Testing.outputFunctional("Restaurants Found (" + this.restaurants.length + "): " + String.join(", ", names));
                 } else {
                     Testing.outputFunctional("Couldn't parse JSON.");
                 }
