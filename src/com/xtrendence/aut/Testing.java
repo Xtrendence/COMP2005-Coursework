@@ -1,23 +1,21 @@
 package com.xtrendence.aut;
 
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Testing extends JFrame {
     public static Testing instance;
-    private JTextArea outputUnitTests;
     private JButton buttonStartUnitTests;
     private JPanel panelMain;
     private JButton buttonStartIntegrationTests;
     private JButton buttonStartFunctionalTests;
-    private JTextArea outputIntegrationTests;
-    private JTextArea outputFunctionalTests;
+    private JTextPane outputTests;
     private JCheckBox checkboxMock;
-    private JScrollPane scrollUnit;
-    private JScrollPane scrollIntegration;
-    private JScrollPane scrollFunctional;
+    private JScrollPane scrollOutput;
 
     public Testing() {
         this.setSize(1320, 720);
@@ -26,20 +24,11 @@ public class Testing extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("API Testing");
 
-        outputUnitTests.setBackground(new Color(240, 240, 240));
-        outputUnitTests.setForeground(new Color(75, 75, 75));
-        outputUnitTests.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        outputUnitTests.setFont(outputUnitTests.getFont().deriveFont(16f));
-
-        outputIntegrationTests.setBackground(new Color(240, 240, 240));
-        outputIntegrationTests.setForeground(new Color(75, 75, 75));
-        outputIntegrationTests.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        outputIntegrationTests.setFont(outputIntegrationTests.getFont().deriveFont(16f));
-
-        outputFunctionalTests.setBackground(new Color(240, 240, 240));
-        outputFunctionalTests.setForeground(new Color(75, 75, 75));
-        outputFunctionalTests.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        outputFunctionalTests.setFont(outputFunctionalTests.getFont().deriveFont(16f));
+        outputTests.setSize(100, outputTests.getHeight());
+        outputTests.setBackground(new Color(240, 240, 240));
+        outputTests.setForeground(new Color(75, 75, 75));
+        outputTests.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        outputTests.setFont(outputTests.getFont().deriveFont(16f));
 
         buttonStartUnitTests.setOpaque(true);
         buttonStartUnitTests.setBackground(new Color(0,125,255));
@@ -54,15 +43,22 @@ public class Testing extends JFrame {
         buttonStartFunctionalTests.setForeground(new Color(255,255,255));
 
         buttonStartFunctionalTests.addActionListener(actionEvent -> {
+            outputTests.setText("");
+
             FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
             try {
                 if(checkboxMock.isSelected()) {
-                    outputFunctional("--- Starting Test w/ Mock API ---");
+                    outputFunctional("--- Starting Test w/ Mock API ---", Color.BLUE);
                 } else {
-                    outputFunctional("--- Starting Test w/ Real API ---");
+                    outputFunctional("--- Starting Test w/ Real API ---", Color.BLUE);
                 }
+
                 testing.loadRestuarants();
                 testing.testGetByCuisine();
+                testing.testGetByNeighborhood();
+                testing.testGetByRating();
+                testing.testGetByNeighborhoodAndRating();
+                testing.testGetByNeighborhoodAndSortByScore();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -76,21 +72,23 @@ public class Testing extends JFrame {
         testing.setContentPane(testing.panelMain);
     }
 
-    public static void outputUnit(String text) {
-        instance.outputUnitTests.setText(instance.outputUnitTests.getText() + text + "\n\n");
-        JScrollBar scrollBar = instance.scrollUnit.getVerticalScrollBar();
+    public static void outputFunctional(String text, Color color) {
+        appendToPane(instance.outputTests, text + "\n\n", color);
+        JScrollBar scrollBar = instance.scrollOutput.getVerticalScrollBar();
         scrollBar.setValue(scrollBar.getMaximum());
     }
 
-    public static void outputIntegration(String text) {
-        instance.outputIntegrationTests.setText(instance.outputIntegrationTests.getText() + text + "\n\n");
-        JScrollBar scrollBar = instance.scrollIntegration.getVerticalScrollBar();
-        scrollBar.setValue(scrollBar.getMaximum());
+    private static void appendToPane(JTextPane pane, String text, Color color) {
+        StyleContext context = StyleContext.getDefaultStyleContext();
+        AttributeSet attribute = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
+
+        attribute = context.addAttribute(attribute, StyleConstants.FontFamily, "Lucida Console");
+        attribute = context.addAttribute(attribute, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int length = pane.getDocument().getLength();
+        pane.setCaretPosition(length);
+        pane.setCharacterAttributes(attribute, false);
+        pane.replaceSelection(text);
     }
 
-    public static void outputFunctional(String text) {
-        instance.outputFunctionalTests.setText(instance.outputFunctionalTests.getText() + text + "\n\n");
-        JScrollBar scrollBar = instance.scrollFunctional.getVerticalScrollBar();
-        scrollBar.setValue(scrollBar.getMaximum());
-    }
 }

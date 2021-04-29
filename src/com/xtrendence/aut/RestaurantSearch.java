@@ -1,10 +1,12 @@
 package com.xtrendence.aut;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.xtrendence.aut.Utils.listToArray;
+import static com.xtrendence.aut.Utils.sortArrayDescending;
 
 public class RestaurantSearch {
     private HashMap<String, double[]> hotels;
@@ -80,6 +82,24 @@ public class RestaurantSearch {
         for(Restaurant restaurant : neighborhoodRestaurants) {
             if(restaurant.getAverageRating() >= rating) {
                 list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
+    public Restaurant[] getByNeighborhoodAndSortByScore(String neighborhood) {
+        List<Restaurant> list = new ArrayList<>();
+        Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
+        int[] scores = new int[neighborhoodRestaurants.length];
+        for(int i = 0; i < neighborhoodRestaurants.length; i++) {
+            scores[i] = neighborhoodRestaurants[i].getScore();
+        }
+        scores = sortArrayDescending(scores);
+        for(int i = 0; i < scores.length; i++) {
+            for(Restaurant restaurant : neighborhoodRestaurants) {
+                if(restaurant.getScore() >= scores[i] && !list.contains(restaurant)) {
+                    list.add(restaurant);
+                }
             }
         }
         return listToArray(list);

@@ -39,7 +39,7 @@ public class RestaurantAdapter {
             try {
                 score = Integer.parseInt(inspectionScore);
             } catch(Exception e) {
-                score = 0;
+                score = 28;
             }
 
             String neighborhood = String.valueOf(restaurant.get("neighborhood")).replace("\"", "");

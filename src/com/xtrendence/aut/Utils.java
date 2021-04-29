@@ -1,7 +1,6 @@
 package com.xtrendence.aut;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
     public static int iteratorSize(Iterator iterator) {
@@ -27,6 +26,25 @@ public class Utils {
             restaurants[i] = list.get(i);
         }
         return restaurants;
+    }
+
+    public static int[] sortArrayAscending(int[] array) {
+        Arrays.sort(array);
+        return array;
+    }
+
+    public static int[] sortArrayDescending(int[] array) {
+        Arrays.sort(array);
+        return reverse(array);
+    }
+
+    public static int[] reverse(int[] array) {
+        for(int left = 0, right = array.length - 1; left < right; left++, right--) {
+            int temp = array[left];
+            array[left]  = array[right];
+            array[right] = temp;
+        }
+        return array;
     }
 
     public static double distanceBetween(double[] from, double[] to) {
