@@ -11,4 +11,12 @@ public class Utils {
         }
         return size;
     }
+
+    public static int sumIntegerArray(int[] array) {
+        int sum = 0;
+        for(int integer : array) {
+            sum += integer;
+        }
+        return sum;
+    }
 }

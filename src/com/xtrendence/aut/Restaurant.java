@@ -1,7 +1,10 @@
 package com.xtrendence.aut;
 
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.HashMap;
+
+import static com.xtrendence.aut.Utils.sumIntegerArray;
 
 public class Restaurant {
     private int id;
@@ -26,6 +29,15 @@ public class Restaurant {
         this.cuisine = cuisine;
         this.hours = hours;
         this.reviews = reviews;
+    }
+
+    public double getAverageRating() {
+        int[] ratings = new int[reviews.length];
+        for(int i = 0; i < reviews.length; i++) {
+            ratings[i] = reviews[i].getRating();
+        }
+        double average = (double) sumIntegerArray(ratings) / reviews.length;
+        return Double.parseDouble(new DecimalFormat("#.#").format(average));
     }
 
     public int getId() {

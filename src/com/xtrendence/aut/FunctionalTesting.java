@@ -37,10 +37,9 @@ public class FunctionalTesting {
                 Testing.outputFunctional("Parsing JSON...");
                 this.restaurants = new RestaurantAdapter(json).adapt();
                 if(this.restaurants.length > 0) {
-                    System.out.println(Arrays.toString(this.restaurants));
                     String[] names = new String[restaurants.length];
                     for(int i = 0; i < this.restaurants.length; i++) {
-                        names[i] = restaurants[i].getName();
+                        names[i] = "\n" + restaurants[i].getName() + " (Average Rating: " + restaurants[i].getAverageRating() + ")";
                     }
                     Testing.outputFunctional("Restaurants Found (" + this.restaurants.length + "): " + String.join(", ", names));
                 } else {
