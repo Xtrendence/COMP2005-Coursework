@@ -17,4 +17,4 @@ You can either download an executable JAR file from the [Releases](https://githu
 |Library|Author                                            |
 |-------|--------------------------------------------------|
 |JUnit  |[JUnit Team](https://github.com/junit-team/junit4)|
-|Gson   |[Google](https://github.com/google/gson)          |
+|Jackson|[FasterXML](https://github.com/FasterXML/jackson) |
