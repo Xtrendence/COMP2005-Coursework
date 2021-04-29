@@ -48,19 +48,22 @@ public class Testing extends JFrame {
             FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
             try {
                 if(checkboxMock.isSelected()) {
-                    outputFunctional("--- Starting Test w/ Mock API ---", Color.BLUE);
+                    outputText("--- Starting Test w/ Mock API ---", Color.BLUE);
                 } else {
-                    outputFunctional("--- Starting Test w/ Real API ---", Color.BLUE);
+                    outputText("--- Starting Test w/ Real API ---", Color.BLUE);
                 }
 
                 testing.loadRestuarants();
                 testing.testGetByCuisine();
+                testing.testGetByCuisineAndNeighborhood();
                 testing.testGetByNeighborhood();
                 testing.testGetByRating();
                 testing.testGetByNeighborhoodAndRating();
                 testing.testGetByNeighborhoodAndSortByScore();
+                testing.testGetByVicinity();
             } catch(Exception e) {
-                e.printStackTrace();
+                outputText(e.getMessage(), Color.RED);
+                System.out.println(e);
             }
         });
     }
@@ -72,7 +75,7 @@ public class Testing extends JFrame {
         testing.setContentPane(testing.panelMain);
     }
 
-    public static void outputFunctional(String text, Color color) {
+    public static void outputText(String text, Color color) {
         appendToPane(instance.outputTests, text + "\n\n", color);
         JScrollBar scrollBar = instance.scrollOutput.getVerticalScrollBar();
         scrollBar.setValue(scrollBar.getMaximum());

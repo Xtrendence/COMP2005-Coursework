@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.xtrendence.aut.Utils.listToArray;
-import static com.xtrendence.aut.Utils.sortArrayDescending;
+import static com.xtrendence.aut.Utils.*;
 
 public class RestaurantSearch {
+    public String api = "http://intelligent-social-robots-ws.com/restaurant-data.json";
     private HashMap<String, double[]> hotels;
     private String data;
     private Restaurant[] restaurants;
@@ -36,7 +36,7 @@ public class RestaurantSearch {
 
     public int loadRestaurants() throws Exception {
         HttpLib httpLib = new HttpLib();
-        Response response = httpLib.call("http://intelligent-social-robots-ws.com/restaurant-data.json");
+        Response response = httpLib.call(api);
         int code = response.getCode();
         String json = response.getData();
         if(code == 200 && json != null && !json.equals("")) {
@@ -66,10 +66,21 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    public Restaurant[] getByCuisineAndNeighborhood(String neighborhood, String cuisine) {
+        List<Restaurant> list = new ArrayList<>();
+        Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
+        for(Restaurant restaurant : neighborhoodRestaurants) {
+            if(restaurant.getCuisine().equalsIgnoreCase(cuisine)) {
+                list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
     public Restaurant[] getByRating(double rating) {
         List<Restaurant> list = new ArrayList<>();
         for(Restaurant restaurant : this.restaurants) {
-            if(restaurant.getAverageRating() >= rating) {
+            if(restaurant.getAverageRating() > rating) {
                 list.add(restaurant);
             }
         }
@@ -80,7 +91,7 @@ public class RestaurantSearch {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
         for(Restaurant restaurant : neighborhoodRestaurants) {
-            if(restaurant.getAverageRating() >= rating) {
+            if(restaurant.getAverageRating() > rating) {
                 list.add(restaurant);
             }
         }
@@ -98,6 +109,28 @@ public class RestaurantSearch {
         for(int i = 0; i < scores.length; i++) {
             for(Restaurant restaurant : neighborhoodRestaurants) {
                 if(restaurant.getScore() >= scores[i] && !list.contains(restaurant)) {
+                    list.add(restaurant);
+                }
+            }
+        }
+        return listToArray(list);
+    }
+
+    public Restaurant[] getByVicinity(String neighborhood) {
+        List<Restaurant> list = new ArrayList<>();
+        Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
+        double[] hotelCoordinates = this.hotels.get(neighborhood.toLowerCase());
+        int[] distances = new int[neighborhoodRestaurants.length];
+        for(int i = 0; i < neighborhoodRestaurants.length; i++) {
+            double[] restaurantCoordinates = neighborhoodRestaurants[i].getCoordinates();
+            distances[i] = (int) Math.floor(distanceBetween(hotelCoordinates, restaurantCoordinates));
+        }
+        distances = sortArrayAscending(distances);
+        for(int i = 0; i < distances.length; i++) {
+            for(Restaurant restaurant : neighborhoodRestaurants) {
+                double[] restaurantCoordinates = restaurant.getCoordinates();
+                int distance = (int) Math.floor(distanceBetween(hotelCoordinates, restaurantCoordinates));
+                if(distance >= distances[i] && !list.contains(restaurant)) {
                     list.add(restaurant);
                 }
             }
