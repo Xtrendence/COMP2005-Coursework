@@ -3,6 +3,9 @@ package com.xtrendence.aut;
 import org.junit.Test;
 
 import java.awt.*;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,8 +14,12 @@ public class FunctionalTesting {
     String data;
     Restaurant[] restaurants;
 
-    public FunctionalTesting(boolean mockTest) {
+    public FunctionalTesting(boolean mockTest) throws Exception {
         this.mockTest = mockTest;
+
+        if(this.restaurants == null || this.data == null || this.data.equals("")) {
+            loadRestuarants();
+        }
     }
 
     @Test
@@ -107,6 +114,33 @@ public class FunctionalTesting {
 
         Testing.outputText("------------", Color.BLACK);
         Testing.outputText("Testing Method: getByCuisineAndNeighborhood(\"Manhattan\", \"Asian\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+        if(actual.equalsIgnoreCase(expected)) {
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } else {
+            Testing.outputText("Test Failed", Color.RED);
+        }
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetByDayAndHour() {
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByDayAndHour("Saturday", "5:30 pm");
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            HashMap<String, LocalTime[]> hours = restaurantArray[i].getHours();
+            LocalTime[] operatingHours = hours.get("Saturday");
+            names[i] = restaurantArray[i].getName() + " (" + Arrays.toString(operatingHours) + ")";
+        }
+
+        String expected = "Emily ([17:00, 23:30]), Katz's Delicatessen ([00:00, 23:59]), Hometown BBQ ([12:00, 23:00]), Superiority Burger ([11:30, 22:00]), Mu Ramen ([17:00, 23:00])";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByDayAndHour(\"Saturday\", \"5:30 pm\")", Color.BLUE);
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
         if(actual.equalsIgnoreCase(expected)) {

@@ -1,9 +1,10 @@
 package com.xtrendence.aut;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.*;
 
 import static com.xtrendence.aut.Utils.*;
 
@@ -72,6 +73,43 @@ public class RestaurantSearch {
         for(Restaurant restaurant : neighborhoodRestaurants) {
             if(restaurant.getCuisine().equalsIgnoreCase(cuisine)) {
                 list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
+    public Restaurant[] getByDayAndHour(String day, String hour) {
+        int timeHour = Integer.parseInt(hour.split(":")[0]);
+
+        if(timeHour < 10) {
+            hour = "0" + hour;
+        }
+
+        List<Restaurant> list = new ArrayList<>();
+        for(Restaurant restaurant : this.restaurants) {
+            HashMap<String, LocalTime[]> hours = restaurant.getHours();
+            Map<Long, String> timeOfDay = Map.of(0L, " am", 1L, " pm");
+            DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm").appendText(ChronoField.AMPM_OF_DAY, timeOfDay).toFormatter();
+            LocalTime[] openingHours = hours.get(day);
+
+            LocalTime time = LocalTime.parse(hour.toLowerCase(), timeFormatter);
+            if(openingHours.length == 2) {
+                LocalTime from = openingHours[0];
+                LocalTime to = openingHours[1];
+
+                if(time.isAfter(from) && time.isBefore(to)) {
+                    list.add(restaurant);
+                }
+            } else {
+                LocalTime fromFirst = openingHours[0];
+                LocalTime toFirst = openingHours[1];
+
+                LocalTime fromSecond = openingHours[2];
+                LocalTime toSecond = openingHours[3];
+
+                if(time.isAfter(fromFirst) && time.isBefore(toFirst) || time.isAfter(fromSecond) && time.isBefore(toSecond)) {
+                    list.add(restaurant);
+                }
             }
         }
         return listToArray(list);

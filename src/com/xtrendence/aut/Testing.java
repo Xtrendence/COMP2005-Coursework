@@ -45,17 +45,18 @@ public class Testing extends JFrame {
         buttonStartFunctionalTests.addActionListener(actionEvent -> {
             outputTests.setText("");
 
-            FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
             try {
+                FunctionalTesting testing = new FunctionalTesting(checkboxMock.isSelected());
+
                 if(checkboxMock.isSelected()) {
                     outputText("--- Starting Test w/ Mock API ---", Color.BLUE);
                 } else {
                     outputText("--- Starting Test w/ Real API ---", Color.BLUE);
                 }
 
-                testing.loadRestuarants();
                 testing.testGetByCuisine();
                 testing.testGetByCuisineAndNeighborhood();
+                testing.testGetByDayAndHour();
                 testing.testGetByNeighborhood();
                 testing.testGetByRating();
                 testing.testGetByNeighborhoodAndRating();
@@ -63,7 +64,7 @@ public class Testing extends JFrame {
                 testing.testGetByVicinity();
             } catch(Exception e) {
                 outputText(e.getMessage(), Color.RED);
-                System.out.println(e);
+                e.printStackTrace();
             }
         });
     }
