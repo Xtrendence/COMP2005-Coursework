@@ -12,10 +12,10 @@ public class Restaurant {
     private String address;
     private double[] coordinates;
     private String cuisine;
-    private HashMap<String, LocalTime> hours;
+    private HashMap<String, LocalTime[]> hours;
     private Review[] reviews;
 
-    public Restaurant(int id, String name, int score, String neighborhood, String photograph, String address, double[] coordinates, String cuisine, HashMap<String, LocalTime> hours, Review[] reviews) {
+    public Restaurant(int id, String name, int score, String neighborhood, String photograph, String address, double[] coordinates, String cuisine, HashMap<String, LocalTime[]> hours, Review[] reviews) {
         this.id = id;
         this.name = name;
         this.score = score;
@@ -60,7 +60,7 @@ public class Restaurant {
         return cuisine;
     }
 
-    public HashMap<String, LocalTime> getHours() {
+    public HashMap<String, LocalTime[]> getHours() {
         return hours;
     }
 
@@ -100,7 +100,7 @@ public class Restaurant {
         this.cuisine = cuisine;
     }
 
-    public void setHours(HashMap<String, LocalTime> hours) {
+    public void setHours(HashMap<String, LocalTime[]> hours) {
         this.hours = hours;
     }
 
