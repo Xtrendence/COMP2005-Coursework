@@ -28,4 +28,12 @@ public class Utils {
         }
         return restaurants;
     }
+
+    public static double distanceBetween(double[] from, double[] to) {
+        double x1 = from[0];
+        double x2 = to[0];
+        double y1 = from[1];
+        double y2 = to[1];
+        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    }
 }

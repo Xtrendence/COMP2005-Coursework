@@ -54,6 +54,37 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    public Restaurant[] getByNeighborhood(String neighborhood) {
+        List<Restaurant> list = new ArrayList<>();
+        for(Restaurant restaurant : this.restaurants) {
+            if(restaurant.getNeighborhood().equalsIgnoreCase(neighborhood)) {
+                list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
+    public Restaurant[] getByRating(double rating) {
+        List<Restaurant> list = new ArrayList<>();
+        for(Restaurant restaurant : this.restaurants) {
+            if(restaurant.getAverageRating() >= rating) {
+                list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
+    public Restaurant[] getByNeighborhoodAndRating(String neighborhood, double rating) {
+        List<Restaurant> list = new ArrayList<>();
+        Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
+        for(Restaurant restaurant : neighborhoodRestaurants) {
+            if(restaurant.getAverageRating() >= rating) {
+                list.add(restaurant);
+            }
+        }
+        return listToArray(list);
+    }
+
     public String getData() {
         return data;
     }
