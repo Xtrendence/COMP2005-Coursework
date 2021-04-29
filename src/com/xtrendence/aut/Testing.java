@@ -64,7 +64,6 @@ public class Testing extends JFrame {
                 outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
                 outputText("Methods Passed: " + testing.passedMethods, new Color(0, 150, 0));
                 outputText("Methods Failed: " + testing.failedMethods, Color.RED);
-
             } catch(Exception e) {
                 outputText(e.getMessage(), Color.RED);
                 e.printStackTrace();

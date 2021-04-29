@@ -158,17 +158,17 @@ public class RestaurantSearch {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
         double[] hotelCoordinates = this.hotels.get(neighborhood.toLowerCase());
-        int[] distances = new int[neighborhoodRestaurants.length];
+        double[] distances = new double[neighborhoodRestaurants.length];
         for(int i = 0; i < neighborhoodRestaurants.length; i++) {
             double[] restaurantCoordinates = neighborhoodRestaurants[i].getCoordinates();
-            distances[i] = (int) Math.floor(distanceBetween(hotelCoordinates, restaurantCoordinates));
+            distances[i] = distanceBetween(hotelCoordinates, restaurantCoordinates);
         }
-        distances = sortArrayAscending(distances);
+        distances = sortArrayAscendingDoubles(distances);
         for(int i = 0; i < distances.length; i++) {
             for(Restaurant restaurant : neighborhoodRestaurants) {
                 double[] restaurantCoordinates = restaurant.getCoordinates();
-                int distance = (int) Math.floor(distanceBetween(hotelCoordinates, restaurantCoordinates));
-                if(distance >= distances[i] && !list.contains(restaurant)) {
+                double distance = distanceBetween(hotelCoordinates, restaurantCoordinates);
+                if(distance <= distances[i] && !list.contains(restaurant)) {
                     list.add(restaurant);
                 }
             }

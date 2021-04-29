@@ -33,6 +33,11 @@ public class Utils {
         return array;
     }
 
+    public static double[] sortArrayAscendingDoubles(double[] array) {
+        Arrays.sort(array);
+        return array;
+    }
+
     public static int[] sortArrayDescending(int[] array) {
         Arrays.sort(array);
         return reverse(array);

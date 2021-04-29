@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.xtrendence.aut.Utils.distanceBetween;
 import static org.junit.Assert.assertEquals;
 
 public class FunctionalTesting {
@@ -297,10 +298,12 @@ public class FunctionalTesting {
         Restaurant[] restaurantArray = restaurantSearch.getByVicinity("Brooklyn");
         String[] names = new String[restaurantArray.length];
         for(int i = 0; i < restaurantArray.length; i++) {
-            names[i] = restaurantArray[i].getName();
+            double[] hotelCoordinates = restaurantSearch.getHotelCoordinatesByNeighborhood("Brooklyn");
+            double[] restaurantCoordinates = restaurantArray[i].getCoordinates();
+            names[i] = restaurantArray[i].getName() + " (" + distanceBetween(hotelCoordinates, restaurantCoordinates) + ")";
         }
 
-        String expected = "Emily, Roberta's Pizza, Hometown BBQ";
+        String expected = "Emily (0.022509017615175434), Hometown BBQ (0.031625908192483905), Roberta's Pizza (0.05669735854518338)";
         String actual = String.join(", ", names);
 
         Testing.outputText("------------", Color.BLACK);
