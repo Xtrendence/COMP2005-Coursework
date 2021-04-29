@@ -1,6 +1,10 @@
 package com.xtrendence.aut;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static com.xtrendence.aut.Utils.listToArray;
 
 public class RestaurantSearch {
     private HashMap<String, double[]> hotels;
@@ -11,7 +15,7 @@ public class RestaurantSearch {
         setHotels();
     }
 
-    public RestaurantSearch(Restaurant[] restaurants) {
+    public RestaurantSearch(String data, Restaurant[] restaurants) {
         setHotels();
         this.restaurants = restaurants;
     }
@@ -34,6 +38,16 @@ public class RestaurantSearch {
             this.restaurants = new RestaurantAdapter(json).adapt();
         }
         return code;
+    }
+
+    public Restaurant[] getByCuisine(String cuisine) {
+        List<Restaurant> list = new ArrayList<>();
+        for(Restaurant restaurant : this.restaurants) {
+            if(restaurant.getCuisine().equalsIgnoreCase(cuisine)) {
+                list.add(restaurant);
+            }
+        }
+        return listToArray(list);
     }
 
     public String getData() {

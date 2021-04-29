@@ -31,7 +31,7 @@ public class RestaurantAdapter {
 
             int id = Integer.parseInt(String.valueOf(restaurant.get("id")));
 
-            String name = String.valueOf(restaurant.get("name"));
+            String name = String.valueOf(restaurant.get("name")).replace("\"", "");
 
             String inspectionScore = String.valueOf(restaurant.get("DOHMH_inspection_score")).replace("\"", "");
             int score;
@@ -42,18 +42,18 @@ public class RestaurantAdapter {
                 score = 0;
             }
 
-            String neighborhood = String.valueOf(restaurant.get("neighborhood"));
+            String neighborhood = String.valueOf(restaurant.get("neighborhood")).replace("\"", "");
 
-            String photograph = String.valueOf(restaurant.get("photograph"));
+            String photograph = String.valueOf(restaurant.get("photograph")).replace("\"", "");
 
-            String address = String.valueOf(restaurant.get("address"));
+            String address = String.valueOf(restaurant.get("address")).replace("\"", "");
 
             JsonNode location = restaurant.get("latlng");
             double latitude = Double.parseDouble(String.valueOf(location.get("lat")));
             double longitude = Double.parseDouble(String.valueOf(location.get("lng")));
             double[] coordinates = new double[]{latitude, longitude};
 
-            String cuisine = String.valueOf(restaurant.get("cuisine_type"));
+            String cuisine = String.valueOf(restaurant.get("cuisine_type")).replace("\"", "");
 
             JsonNode operating = restaurant.get("operating_hours");
             String monday = String.valueOf(operating.get("Monday")).replace("\"", "");
@@ -79,11 +79,11 @@ public class RestaurantAdapter {
             int reviewIndex = 0;
             while(reviewIterator.hasNext()) {
                 JsonNode review = reviewIterator.next();
-                String reviewName = String.valueOf(review.get("name"));
+                String reviewName = String.valueOf(review.get("name")).replace("\"", "");
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, u", Locale.ENGLISH);
                 LocalDate reviewDate = LocalDate.parse(String.valueOf(review.get("date")).replace("\"", ""), dateFormatter);
                 int reviewRating = Integer.parseInt(String.valueOf(review.get("rating")));
-                String reviewComments = String.valueOf(review.get("comments"));
+                String reviewComments = String.valueOf(review.get("comments")).replace("\"", "");
                 Review customerReview = new Review(reviewName, reviewDate, reviewRating, reviewComments);
                 reviews[reviewIndex] = customerReview;
                 reviewIndex += 1;

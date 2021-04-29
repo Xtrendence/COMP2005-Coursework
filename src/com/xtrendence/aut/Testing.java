@@ -62,6 +62,7 @@ public class Testing extends JFrame {
                     outputFunctional("--- Starting Test w/ Real API ---");
                 }
                 testing.loadRestuarants();
+                testing.testGetByCuisine();
             } catch(Exception e) {
                 e.printStackTrace();
             }

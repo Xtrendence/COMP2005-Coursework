@@ -1,6 +1,7 @@
 package com.xtrendence.aut;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class Utils {
     public static int iteratorSize(Iterator iterator) {
@@ -18,5 +19,13 @@ public class Utils {
             sum += integer;
         }
         return sum;
+    }
+
+    public static Restaurant[] listToArray(List<Restaurant> list) {
+        Restaurant[] restaurants = new Restaurant[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            restaurants[i] = list.get(i);
+        }
+        return restaurants;
     }
 }
