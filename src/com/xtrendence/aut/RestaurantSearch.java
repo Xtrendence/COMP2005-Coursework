@@ -22,10 +22,14 @@ public class RestaurantSearch {
 
     public void setHotels() {
         HashMap<String, double[]> hotels = new HashMap<>();
-        hotels.put("Manhattan", new double[]{40.752831, -73.985748});
-        hotels.put("Queens", new double[]{40.753990, -73.949240});
-        hotels.put("Brooklyn", new double[]{40.689510, -73.988100});
+        hotels.put("manhattan", new double[]{40.752831, -73.985748});
+        hotels.put("queens", new double[]{40.753990, -73.949240});
+        hotels.put("brooklyn", new double[]{40.689510, -73.988100});
         this.hotels = hotels;
+    }
+
+    public double[] getHotelCoordinatesByNeighborhood(String neighborhood) {
+        return hotels.get(neighborhood.toLowerCase());
     }
 
     public int loadRestaurants() throws Exception {
