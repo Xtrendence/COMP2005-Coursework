@@ -41,13 +41,13 @@ public class Testing extends JFrame {
         buttonStartFunctionalTests.setBackground(new Color(0,125,255));
         buttonStartFunctionalTests.setForeground(new Color(255,255,255));
 
-        buttonStartFunctionalTests.addActionListener(actionEvent -> {
+        buttonStartUnitTests.addActionListener(actionEvent -> {
             outputTests.setText("");
 
             try {
-                outputText("--- Starting Functional Testing w/ Real API ---", Color.BLUE);
+                outputText("--- Starting Unit Testing w/ Mock Object ---", Color.BLUE);
 
-                FunctionalTesting testing = new FunctionalTesting();
+                UnitTesting testing = new UnitTesting();
 
                 testing.testGetByCuisine();
                 testing.testGetByCuisineAndNeighborhood();
@@ -58,12 +58,39 @@ public class Testing extends JFrame {
                 testing.testGetByNeighborhoodAndSortByScore();
                 testing.testGetByVicinity();
 
-                outputText("--- Finished Functional Testing w/ Real API ---", Color.BLUE);
+                outputText("--- Finished Unit Testing w/ Mock Object ---", Color.BLUE);
                 outputText("--- Code Coverage & Results ---", Color.MAGENTA);
                 outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
                 outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
                 outputText("Methods Passed: " + testing.passedMethods, new Color(0, 150, 0));
                 outputText("Methods Failed: " + testing.failedMethods, Color.RED);
+            } catch(Exception e) {
+                outputText(e.getMessage(), Color.RED);
+                e.printStackTrace();
+            }
+        });
+
+        buttonStartFunctionalTests.addActionListener(actionEvent -> {
+            outputTests.setText("");
+
+            try {
+                outputText("--- Starting Functional Testing w/ Real API ---", Color.BLUE);
+
+                FunctionalTesting testing = new FunctionalTesting();
+
+                testing.testGetByCuisine("Asian");
+                testing.testGetByCuisineAndNeighborhood("Manhattan", "Asian");
+                testing.testGetByDayAndHour("Saturday", "5:30 PM");
+                testing.testGetByNeighborhood("Manhattan");
+                testing.testGetByRating(4.5);
+                testing.testGetByNeighborhoodAndRating("Manhattan", 3.85);
+                testing.testGetByNeighborhoodAndSortByScore("Manhattan");
+                testing.testGetByVicinity("Brooklyn");
+
+                outputText("--- Finished Functional Testing w/ Real API ---", Color.BLUE);
+                outputText("--- Code Coverage & Results ---", Color.MAGENTA);
+                outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
+                outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
             } catch(Exception e) {
                 outputText(e.getMessage(), Color.RED);
                 e.printStackTrace();
