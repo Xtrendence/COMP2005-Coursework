@@ -15,6 +15,8 @@ public class Testing extends JFrame {
     private JButton buttonStartFunctionalTests;
     private JTextPane outputTests;
     private JScrollPane scrollOutput;
+    private JCheckBox cornerCases;
+    private JCheckBox edgeCases;
 
     public Testing() {
         this.setSize(1320, 720);
@@ -66,13 +68,27 @@ public class Testing extends JFrame {
                 testing.testGetByNeighborhoodAndSortByScore();
                 testing.testGetByVicinity();
 
+                if(edgeCases.isSelected()) {
+                    testing.testGetByNeighborhoodNonExistent();
+                    testing.testGetByNeighborhoodEmpty();
+                    testing.testGetByNeighborhoodNumber();
+                    testing.testGetByNeighborhoodAndRatingNegative();
+                    testing.testGetByDayAndHourInvalidDay();
+                    testing.testGetByDayAndHourInvalidHour();
+                }
+
+                if(cornerCases.isSelected()) {
+                    testing.testGetByCuisineAndNeighborhoodNonExistent();
+                    testing.testGetByNeighborhoodAndRatingNonExistentNegative();
+                }
+
                 outputText("--- Finished Unit Testing w/ Mock Object ---", Color.BLUE);
                 outputText("--- Code Coverage & Results ---", Color.MAGENTA);
                 outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
-                outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
-                outputText("Methods Passed: " + testing.passedMethods, new Color(0, 150, 0));
-                outputText("Methods Failed: " + testing.failedMethods, Color.RED);
-            } catch(Exception e) {
+                outputText("Methods Tested: " + testing.testedMethods + " (" + (testing.testedMethods * 100) / testing.overallMethods + "%)", Color.BLACK);
+                outputText("Methods Passed: " + testing.passedMethods + " (" + (testing.passedMethods * 100) / testing.overallMethods + "%)", new Color(0, 150, 0));
+                outputText("Methods Failed: " + testing.failedMethods  + " (" + (100 - ((testing.passedMethods * 100) / testing.overallMethods)) + "%)", Color.RED);
+            } catch(Exception | Error e) {
                 outputText(e.getMessage(), Color.RED);
                 e.printStackTrace();
             }
@@ -98,8 +114,8 @@ public class Testing extends JFrame {
                 outputText("--- Finished Functional Testing w/ Real API ---", Color.BLUE);
                 outputText("--- Code Coverage & Results ---", Color.MAGENTA);
                 outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
-                outputText("Methods Tested: " + testing.testedMethods, Color.BLACK);
-            } catch(Exception e) {
+                outputText("Methods Tested: " + testing.testedMethods + " (" + (testing.testedMethods * 100) / testing.overallMethods + "%)", Color.BLACK);
+            } catch(Exception | Error e) {
                 outputText(e.getMessage(), Color.RED);
                 e.printStackTrace();
             }
@@ -114,6 +130,7 @@ public class Testing extends JFrame {
     }
 
     public static void outputText(String text, Color color) {
+        System.out.println(text);
         appendToPane(instance.outputTests, text + "\n\n", color);
         JScrollBar scrollBar = instance.scrollOutput.getVerticalScrollBar();
         scrollBar.setValue(scrollBar.getMaximum());
@@ -123,7 +140,6 @@ public class Testing extends JFrame {
         StyleContext context = StyleContext.getDefaultStyleContext();
         AttributeSet attribute = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
 
-        attribute = context.addAttribute(attribute, StyleConstants.FontFamily, "Lucida Console");
         attribute = context.addAttribute(attribute, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 
         int length = pane.getDocument().getLength();

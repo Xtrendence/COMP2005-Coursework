@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.lang.reflect.Method;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -530,6 +531,264 @@ public class UnitTesting {
 
         Testing.outputText("------------", Color.BLACK);
         Testing.outputText("Testing Method: getByVicinity(\"Brooklyn\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByNeighborhoodNonExistent() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhood("Narnia");
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
+
+        String expected = "";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByNeighborhood(\"Narnia\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByNeighborhoodEmpty() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhood("");
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
+
+        String expected = "";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByNeighborhood(\"\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByNeighborhoodNumber() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhood("5");
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
+
+        String expected = "";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByNeighborhood(\"5\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByCuisineAndNeighborhoodNonExistent() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByCuisineAndNeighborhood("Narnia", "Persian");
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName();
+        }
+
+        String expected = "";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByCuisineAndNeighborhood(\"Narnia\", \"Persian\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByNeighborhoodAndRatingNegative() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhoodAndRating("Manhattan", -5);
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName() + " (" + restaurantArray[i].getAverageRating() + ")";
+        }
+
+        String expected = "Mission Chinese Food (3.7), Kang Ho Dong Baekjeong (3.7), Katz's Delicatessen (4.0), Superiority Burger (4.3), The Dutch (4.0)";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByNeighborhoodAndRating(\"Manhattan\", -5)", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetByNeighborhoodAndRatingNonExistentNegative() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+        Restaurant[] restaurantArray = restaurantSearch.getByNeighborhoodAndRating("Narnia", -5);
+        String[] names = new String[restaurantArray.length];
+        for(int i = 0; i < restaurantArray.length; i++) {
+            names[i] = restaurantArray[i].getName() + " (" + restaurantArray[i].getAverageRating() + ")";
+        }
+
+        String expected = "";
+        String actual = String.join(", ", names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByNeighborhoodAndRating(\"Narnia\", -5)", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGetByDayAndHourInvalidDay() {
+        testedMethods++;
+
+        String expected = null;
+        String actual;
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByDayAndHour(\"Someday\", \"5:30 pm\")", Color.BLUE);
+
+        try {
+            RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+            Restaurant[] restaurantArray = restaurantSearch.getByDayAndHour("Someday", "5:30 pm");
+            String[] names = new String[restaurantArray.length];
+            for(int i = 0; i < restaurantArray.length; i++) {
+                HashMap<String, LocalTime[]> hours = restaurantArray[i].getHours();
+                LocalTime[] operatingHours = hours.get("Someday");
+                names[i] = restaurantArray[i].getName() + " (" + Arrays.toString(operatingHours) + ")";
+            }
+
+            actual = String.join(", ", names);
+        } catch(NullPointerException e) {
+            actual = e.getMessage();
+        }
+
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test(expected = DateTimeParseException.class)
+    public void testGetByDayAndHourInvalidHour() {
+        testedMethods++;
+
+        String expected = "Text '005:30 pm' could not be parsed at index 2";
+        String actual;
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getByDayAndHour(\"Saturday\", \"05:30 pm\")", Color.BLUE);
+
+        try {
+            RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+            Restaurant[] restaurantArray = restaurantSearch.getByDayAndHour("Saturday", "05:30 pm");
+            String[] names = new String[restaurantArray.length];
+            for(int i = 0; i < restaurantArray.length; i++) {
+                HashMap<String, LocalTime[]> hours = restaurantArray[i].getHours();
+                LocalTime[] operatingHours = hours.get("Saturday");
+                names[i] = restaurantArray[i].getName() + " (" + Arrays.toString(operatingHours) + ")";
+            }
+
+            actual = String.join(", ", names);
+        } catch(DateTimeParseException e) {
+            actual = e.getMessage();
+        }
+
         Testing.outputText("Expected: " + expected, Color.BLACK);
         Testing.outputText("Actual: " + actual, Color.BLACK);
 
