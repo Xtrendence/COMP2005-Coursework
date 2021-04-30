@@ -37,6 +37,9 @@ public class UnitTesting {
         loadRestuarants();
     }
 
+    /* Fetches the restaurant data from the mock object to ensure the API doesn't act as a dependency when unit testing.
+    *  @return Nothing.
+    */
     @Test
     public void loadRestuarants() throws Exception {
         testedMethods++;
@@ -85,6 +88,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the iteratorSize method.
+    *  @return Nothing.
+    */
     @Test
     public void testIteratorSize() throws JsonProcessingException {
         testedMethods++;
@@ -115,6 +121,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the sumIntegerArray method.
+    *  @return Nothing.
+    */
     @Test
     public void testSumIntegerArray() {
         testedMethods++;
@@ -141,6 +150,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the sortArrayAscendingDoubles method.
+    *  @return Nothing.
+    */
     @Test
     public void testSortArrayAscendingDoubles() {
         testedMethods++;
@@ -167,6 +179,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the sortArrayDescending method.
+    *  @return Nothing.
+    */
     @Test
     public void testSortArrayDescending() {
         testedMethods++;
@@ -193,6 +208,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the reverse method.
+    *  @return Nothing.
+    */
     @Test
     public void testReverse() {
         testedMethods++;
@@ -219,6 +237,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the distanceBetween method.
+    *  @return Nothing.
+    */
     @Test
     public void testDistanceBetween() {
         testedMethods++;
@@ -246,6 +267,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getHotels method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetHotels() {
         testedMethods++;
@@ -274,6 +298,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getHotelCoordinatesByNeighborhood method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetHotelCoordinatesByNeighborhood() {
         testedMethods++;
@@ -301,6 +328,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByCuisine method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByCuisine() {
         testedMethods++;
@@ -331,6 +361,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByCuisineAndNeighborhood method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByCuisineAndNeighborhood() {
         testedMethods++;
@@ -361,6 +394,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByDayAndHour method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByDayAndHour() {
         testedMethods++;
@@ -393,6 +429,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhood method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhood() {
         testedMethods++;
@@ -423,6 +462,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByRating method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByRating() {
         testedMethods++;
@@ -453,6 +495,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhoodAndRating method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodAndRating() {
         testedMethods++;
@@ -483,6 +528,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhoodAndSortByScore method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodAndSortByScore() {
         testedMethods++;
@@ -513,6 +561,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByVicinity method.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByVicinity() {
         testedMethods++;
@@ -545,6 +596,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhood method with a neighborhood that doesn't exist.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodNonExistent() {
         testedMethods++;
@@ -575,6 +629,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhood method without a neighborhood as an argument.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodEmpty() {
         testedMethods++;
@@ -605,6 +662,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhood method with a number as the neighborhood name.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodNumber() {
         testedMethods++;
@@ -635,6 +695,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByCuisineAndNeighborhood method with a neighborhood name and restaurant cuisine that don't exist as part of the list.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByCuisineAndNeighborhoodNonExistent() {
         testedMethods++;
@@ -665,6 +728,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhoodAndRating method with a negative rating.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodAndRatingNegative() {
         testedMethods++;
@@ -695,6 +761,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByNeighborhoodAndRating method with a neighborhood that doesn't exist and a negative rating.
+    *  @return Nothing.
+    */
     @Test
     public void testGetByNeighborhoodAndRatingNonExistentNegative() {
         testedMethods++;
@@ -725,6 +794,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByDayAndHour method with an invalid day.
+    *  @return Nothing.
+    */
     @Test(expected = NullPointerException.class)
     public void testGetByDayAndHourInvalidDay() {
         testedMethods++;
@@ -764,6 +836,9 @@ public class UnitTesting {
         }
     }
 
+    /* Tests the getByDayAndHour method with an invalid time.
+    *  @return Nothing.
+    */
     @Test(expected = DateTimeParseException.class)
     public void testGetByDayAndHourInvalidHour() {
         testedMethods++;

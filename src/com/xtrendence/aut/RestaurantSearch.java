@@ -24,6 +24,9 @@ public class RestaurantSearch {
         this.restaurants = restaurants;
     }
 
+    /* Sets the hotel coordinates in each neighborhood.
+    *  @return Nothing.
+    */
     public void setHotels() {
         HashMap<String, double[]> hotels = new HashMap<>();
         hotels.put("manhattan", new double[]{40.752831, -73.985748});
@@ -36,10 +39,17 @@ public class RestaurantSearch {
         return hotels;
     }
 
+    /* Returns the coordinates of a hotel based on the neighborhood.
+    *  @param neighborhood The neighborhood the hotel is in.
+    *  @return double[] the coordinates of the hotel.
+    */
     public double[] getHotelCoordinatesByNeighborhood(String neighborhood) {
         return hotels.get(neighborhood.toLowerCase());
     }
 
+    /* Fetches the restaurant data from the real API.
+    *  @return int the response code of the GET request.
+    */
     public int loadRestaurants() throws Exception {
         HttpLib httpLib = new HttpLib();
         Response response = httpLib.call(api);
@@ -52,6 +62,10 @@ public class RestaurantSearch {
         return code;
     }
 
+    /* Returns a list of restaurants based on their cuisine.
+    *  @param cuisine The cuisine_type value.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByCuisine(String cuisine) {
         List<Restaurant> list = new ArrayList<>();
         for(Restaurant restaurant : this.restaurants) {
@@ -62,6 +76,10 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants based on their neighborhood.
+    *  @param neighborhood The neighborhood to filter the restaurants by.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByNeighborhood(String neighborhood) {
         List<Restaurant> list = new ArrayList<>();
         for(Restaurant restaurant : this.restaurants) {
@@ -72,6 +90,11 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants based on their neighborhood and cuisine.
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @param cuisine The cuisine_type value.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByCuisineAndNeighborhood(String neighborhood, String cuisine) {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
@@ -83,6 +106,11 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants that are open on a given day, at a given time.
+    *  @param day The day of the week (Sunday, Monday, Tuesday etc.)
+    *  @param hour The time of day in the format H:MM, with the AM/PM (5:30 PM, 11:00 PM, 2:30 AM, 6:30 PM)
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByDayAndHour(String day, String hour) {
         int timeHour = Integer.parseInt(hour.split(":")[0]);
 
@@ -120,6 +148,10 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants based on their rating.
+    *  @param rating The rating above which the restaurant would have to be.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByRating(double rating) {
         List<Restaurant> list = new ArrayList<>();
         for(Restaurant restaurant : this.restaurants) {
@@ -130,6 +162,11 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants based on their neighborhood and rating.
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @param rating The rating above which the restaurant would have to be.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByNeighborhoodAndRating(String neighborhood, double rating) {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
@@ -141,6 +178,10 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants sorted according to their DOHMH inspection scores in descending order.
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByNeighborhoodAndSortByScore(String neighborhood) {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);
@@ -159,6 +200,10 @@ public class RestaurantSearch {
         return listToArray(list);
     }
 
+    /* Returns a list of restaurants in a neighborhood sorted by their vicinity to the hotel (in ascending order, so the nearest is first).
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @return Restaurant[] the array of restaurants.
+    */
     public Restaurant[] getByVicinity(String neighborhood) {
         List<Restaurant> list = new ArrayList<>();
         Restaurant[] neighborhoodRestaurants = getByNeighborhood(neighborhood);

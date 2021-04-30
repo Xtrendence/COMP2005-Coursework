@@ -49,6 +49,7 @@ public class Testing extends JFrame {
             try {
                 outputText("--- Starting Unit Testing w/ Mock Object ---", Color.BLUE);
 
+                // Unit tests ensure that every small part of the software works as intended, while considering and testing edge cases and corner cases.
                 UnitTesting testing = new UnitTesting();
 
                 testing.testIteratorSize();
@@ -100,8 +101,10 @@ public class Testing extends JFrame {
             try {
                 outputText("--- Starting Functional Testing w/ Real API ---", Color.BLUE);
 
+                // Functional tests ensure that the software meets the requirements of the client.
                 FunctionalTesting testing = new FunctionalTesting();
 
+                // The arguments of the following methods can be changed in order to verify that the requirements are fully met.
                 testing.testGetByCuisine("Asian");
                 testing.testGetByCuisineAndNeighborhood("Manhattan", "Asian");
                 testing.testGetByDayAndHour("Saturday", "5:30 PM");

@@ -31,6 +31,9 @@ public class Restaurant {
         this.reviews = reviews;
     }
 
+    /* Returns the average rating of the restaurant by looping over the reviews, storing the ratings in an array, summing the array, then dividing the sum by the number of reviews.
+    *  @return double the average rating.
+    */
     public double getAverageRating() {
         int[] ratings = new int[reviews.length];
         for(int i = 0; i < reviews.length; i++) {

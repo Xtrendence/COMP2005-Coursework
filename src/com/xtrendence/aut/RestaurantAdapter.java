@@ -19,6 +19,9 @@ public class RestaurantAdapter {
         this.json = json;
     }
 
+    /* Parses the JSON data and stores the data in Restaurant objects, which contain Review objects, then returns an array of Restaurant objects.
+    *  @return Restaurant[] the array of Restaurant objects.
+    */
     public Restaurant[] adapt() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(json);
@@ -26,6 +29,8 @@ public class RestaurantAdapter {
         Iterator<JsonNode> restaurantIterator = restaurantsNode.elements();
         Restaurant[] restaurants = new Restaurant[iteratorSize(restaurantsNode.elements())];
         int restaurantIndex = 0;
+
+        // Loops over all the values of the "restaurants" key.
         while(restaurantIterator.hasNext()) {
             JsonNode restaurant = restaurantIterator.next();
 
@@ -77,6 +82,8 @@ public class RestaurantAdapter {
             Iterator<JsonNode> reviewIterator = customerReviews.elements();
             Review[] reviews = new Review[iteratorSize(customerReviews.elements())];
             int reviewIndex = 0;
+
+            // Loops over all the values of the "reviews" key.
             while(reviewIterator.hasNext()) {
                 JsonNode review = reviewIterator.next();
                 String reviewName = String.valueOf(review.get("name")).replace("\"", "");
@@ -88,6 +95,8 @@ public class RestaurantAdapter {
                 reviews[reviewIndex] = customerReview;
                 reviewIndex += 1;
             }
+
+            // Instantiate the Restaurant object, and add it to the "restaurants" array.
             Restaurant restaurantObject = new Restaurant(id, name, score, neighborhood, photograph, address, coordinates, cuisine, hours, reviews);
             restaurants[restaurantIndex] = restaurantObject;
             restaurantIndex += 1;
@@ -95,24 +104,36 @@ public class RestaurantAdapter {
         return restaurants;
     }
 
+    /* Returns an array of LocalTime objects, which contain the operating hours of a restaurant.
+    *  @param hours The hours during which the restaurant is open.
+    *  @return LocalTime[] the array of LocalTime objects.
+    */
     public LocalTime[] getHours(String hours) {
+        // Since some of the operating hours have the previous or next day as the value, this ensures those can be parsed.
         String[] abbreviations = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        // Most operating hours in the JSON have an "am" and "pm", so the parser works by taking that into account.
         Map<Long, String> timeOfDay = Map.of(0L, " am", 1L, " pm");
+        // Although the data is in the format h:mm at times, this is later adjusted to ensure they're all hh:mm.
         DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm").appendText(ChronoField.AMPM_OF_DAY, timeOfDay).toFormatter();
 
+        // If the restaurant is open the whole day, then it'd be open from 12 AM to 11:59 PM.
         if(hours.equalsIgnoreCase("open 24 hours")) {
             LocalTime localFrom = LocalTime.parse("12:00 am", timeFormatter);
             LocalTime localTo = LocalTime.parse("11:59 pm", timeFormatter);
             return new LocalTime[]{localFrom, localTo};
         }
 
+        // If the restaurant is closed, then its operating hours are 0, which means it "opens" at 12 and closes at 12.
         if(hours.equalsIgnoreCase("closed")) {
             LocalTime localFrom = LocalTime.parse("12:00 am", timeFormatter);
             LocalTime localTo = LocalTime.parse("12:00 am", timeFormatter);
             return new LocalTime[]{localFrom, localTo};
         }
 
+        // Some operating hours have two shifts.
         String[] parts = hours.split(", ");
+
+        // If there are two shifts, then there are two time ranges to consider, the "from" and "to" of the first shift, and the "from" and "to" of the second.
         if(parts.length == 2) {
             String[] spanFirst = parts[0].split(" - ");
             String[] spanSecond = parts[1].split(" - ");
@@ -120,6 +141,7 @@ public class RestaurantAdapter {
             String fromFirst = spanFirst[0];
             String fromSecond = spanSecond[0];
 
+            // If the "from" is the name of a day of the week, then it is assumed that that day starts at 12 AM.
             if(Arrays.asList(abbreviations).contains(fromFirst)) {
                 fromFirst = "12:00 am";
             }

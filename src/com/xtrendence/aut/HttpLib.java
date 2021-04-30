@@ -6,6 +6,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpLib implements IHttpLib {
+    /* Make an API call to a given URL. (In this case, a GET request).
+    *  @param url The URL to send a GET request to.
+    *  @return Response the response code and data.
+    */
     public Response call(String url) throws Exception {
         URL urlObject = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();

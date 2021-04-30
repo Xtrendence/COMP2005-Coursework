@@ -28,10 +28,14 @@ public class FunctionalTesting {
         loadRestuarants();
     }
 
+    /* Fetches the restaurant data from the API.
+    *  @return Nothing.
+    */
     @Test
     public void loadRestuarants() throws Exception {
         testedMethods++;
 
+        // Since these are functional tests, data is fetched from the real API.
         RestaurantSearch restaurantSearch = new RestaurantSearch();
         Testing.outputText("Fetching JSON from " + restaurantSearch.api + "...", Color.BLUE);
         int code = restaurantSearch.loadRestaurants();
@@ -73,6 +77,10 @@ public class FunctionalTesting {
         }
     }
 
+    /* Tests the getByCuisine method.
+    *  @param cuisine The cuisine_type value.
+    *  @return Nothing.
+    */
     public void testGetByCuisine(String cuisine) {
         testedMethods++;
 
@@ -92,6 +100,11 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByCuisineAndNeighborhood method.
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @param cuisine The cuisine_type value.
+    *  @return Nothing.
+    */
     public void testGetByCuisineAndNeighborhood(String neighborhood, String cuisine) {
         testedMethods++;
 
@@ -111,6 +124,11 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByDayAndHour method.
+    *  @param day The full name of the day (Sunday, Monday, Tuesday etc.)
+    *  @param hour The hour in the format of 12-hour time, including AM/PM (5:30 PM, 2:25 AM etc.)
+    *  @return Nothing.
+    */
     public void testGetByDayAndHour(String day, String hour) {
         testedMethods++;
 
@@ -132,6 +150,10 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByNeighborhood method.
+    *  @param neighborhood The neighborhood to look for restaurants in.
+    *  @return Nothing.
+    */
     public void testGetByNeighborhood(String neighborhood) {
         testedMethods++;
 
@@ -151,6 +173,10 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByRating method.
+    *  @param rating The rating of the restaurant.
+    *  @return Nothing.
+    */
     public void testGetByRating(double rating) {
         testedMethods++;
 
@@ -170,6 +196,11 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByNeighborhoodAndRating method.
+    *  @param neighborhood The neighborhood to look for restaurants in.
+    *  @param rating The rating of the restaurant.
+    *  @return Nothing.
+    */
     public void testGetByNeighborhoodAndRating(String neighborhood, double rating) {
         testedMethods++;
 
@@ -189,6 +220,10 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByNeighborhoodAndSortByScore method.
+    *  @param neighborhood The neighborhood to search for restaurants.
+    *  @return Nothing.
+    */
     public void testGetByNeighborhoodAndSortByScore(String neighborhood) {
         testedMethods++;
 
@@ -208,6 +243,10 @@ public class FunctionalTesting {
         Testing.outputText("Test Finished", Color.DARK_GRAY);
     }
 
+    /* Tests the getByVicinity method.
+    *  @param neighborhood The neighborhood of the hotel.
+    *  @return Nothing.
+    */
     public void testGetByVicinity(String neighborhood) {
         testedMethods++;
 
