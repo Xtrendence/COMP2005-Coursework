@@ -49,6 +49,13 @@ public class Testing extends JFrame {
 
                 UnitTesting testing = new UnitTesting();
 
+                testing.testIteratorSize();
+                testing.testSumIntegerArray();
+                testing.testSortArrayAscendingDoubles();
+                testing.testSortArrayDescending();
+                testing.testReverse();
+                testing.testDistanceBetween();
+                testing.testGetHotels();
                 testing.testGetHotelCoordinatesByNeighborhood();
                 testing.testGetByCuisine();
                 testing.testGetByCuisineAndNeighborhood();

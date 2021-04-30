@@ -1,5 +1,8 @@
 package com.xtrendence.aut;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.awt.*;
@@ -7,8 +10,9 @@ import java.lang.reflect.Method;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 
-import static com.xtrendence.aut.Utils.distanceBetween;
+import static com.xtrendence.aut.Utils.*;
 import static org.junit.Assert.assertEquals;
 
 public class UnitTesting {
@@ -77,6 +81,195 @@ public class UnitTesting {
             } else {
                 Testing.outputText("Couldn't fetch JSON.", Color.RED);
             }
+        }
+    }
+
+    @Test
+    public void testIteratorSize() throws JsonProcessingException {
+        testedMethods++;
+
+        String json = "{\"key\":{\"0\":\"value\", \"1\":\"value\"}}";
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(json);
+        JsonNode keyNode = jsonNode.get("key");
+        Iterator<JsonNode> iterator = keyNode.elements();
+        int size = iteratorSize(iterator);
+
+        String expected = "2";
+        String actual = String.valueOf(size);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: iteratorSize(iterator)", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSumIntegerArray() {
+        testedMethods++;
+
+        int[] integers = new int[]{5, 10, 2, 8, 20};
+        int sum = sumIntegerArray(integers);
+
+        String expected = "45";
+        String actual = String.valueOf(sum);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: sumIntegerArray({5, 10, 2, 8, 20})", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSortArrayAscendingDoubles() {
+        testedMethods++;
+
+        double[] doubles = new double[]{5.5, 0.8, 2.8, 20.1, 50.25, 10.555};
+        double[] sorted = sortArrayAscendingDoubles(doubles);
+
+        String expected = "[0.8, 2.8, 5.5, 10.555, 20.1, 50.25]";
+        String actual = Arrays.toString(sorted);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: sortArrayAscendingDoubles({5.5, 0.8, 2.8, 20.1, 50.25, 10.555})", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSortArrayDescending() {
+        testedMethods++;
+
+        int[] integers = new int[]{5, 8, 2, 20, 50, 10};
+        int[] sorted = sortArrayDescending(integers);
+
+        String expected = "[50, 20, 10, 8, 5, 2]";
+        String actual = Arrays.toString(sorted);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: sortArrayDescending({5, 8, 2, 20, 50, 10})", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testReverse() {
+        testedMethods++;
+
+        int[] integers = new int[]{5, 8, 2, 20, 50, 10};
+        int[] reversed = reverse(integers);
+
+        String expected = "[10, 50, 20, 2, 8, 5]";
+        String actual = Arrays.toString(reversed);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: reverse({5, 8, 2, 20, 50, 10})", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDistanceBetween() {
+        testedMethods++;
+
+        double[] from = new double[]{5, 10};
+        double[] to = new double[]{20, 30};
+        double distance = distanceBetween(from, to);
+
+        String expected = "25.0";
+        String actual = String.valueOf(distance);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: distanceBetween({5, 10}, {20, 30})", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetHotels() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+
+        HashMap<String, double[]> hotels = restaurantSearch.getHotels();
+        String[] names = hotels.keySet().toArray(new String[0]);
+
+        String expected = "[brooklyn, manhattan, queens]";
+        String actual = Arrays.toString(names);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getHotels()", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
         }
     }
 

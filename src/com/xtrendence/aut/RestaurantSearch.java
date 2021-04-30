@@ -32,6 +32,10 @@ public class RestaurantSearch {
         this.hotels = hotels;
     }
 
+    public HashMap<String, double[]> getHotels() {
+        return hotels;
+    }
+
     public double[] getHotelCoordinatesByNeighborhood(String neighborhood) {
         return hotels.get(neighborhood.toLowerCase());
     }

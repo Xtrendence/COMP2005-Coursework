@@ -28,11 +28,6 @@ public class Utils {
         return restaurants;
     }
 
-    public static int[] sortArrayAscending(int[] array) {
-        Arrays.sort(array);
-        return array;
-    }
-
     public static double[] sortArrayAscendingDoubles(double[] array) {
         Arrays.sort(array);
         return array;
