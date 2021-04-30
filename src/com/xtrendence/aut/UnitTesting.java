@@ -16,11 +16,12 @@ public class UnitTesting {
     public int testedMethods;
     public int passedMethods;
     public int failedMethods;
+
     String data;
     Restaurant[] restaurants;
 
     public UnitTesting() throws Exception {
-        Class thisClass = FunctionalTesting.class;
+        Class thisClass = UnitTesting.class;
         Method[] methods = thisClass.getDeclaredMethods();
 
         this.overallMethods = methods.length;
@@ -76,6 +77,33 @@ public class UnitTesting {
             } else {
                 Testing.outputText("Couldn't fetch JSON.", Color.RED);
             }
+        }
+    }
+
+    @Test
+    public void testGetHotelCoordinatesByNeighborhood() {
+        testedMethods++;
+
+        RestaurantSearch restaurantSearch = new RestaurantSearch(this.data, this.restaurants);
+
+        double[] coordinates = restaurantSearch.getHotelCoordinatesByNeighborhood("Queens");
+
+        String expected = "[40.75399, -73.94924]";
+        String actual = Arrays.toString(coordinates);
+
+        Testing.outputText("------------", Color.BLACK);
+        Testing.outputText("Testing Method: getHotelCoordinatesByNeighborhood(\"Queens\")", Color.BLUE);
+        Testing.outputText("Expected: " + expected, Color.BLACK);
+        Testing.outputText("Actual: " + actual, Color.BLACK);
+
+        try {
+            assertEquals(expected, actual);
+            passedMethods++;
+            Testing.outputText("Test Passed", new Color(0, 150, 0));
+        } catch(AssertionError e) {
+            failedMethods++;
+            Testing.outputText("Test Failed", Color.RED);
+            e.printStackTrace();
         }
     }
 

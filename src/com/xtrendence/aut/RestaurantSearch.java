@@ -20,6 +20,7 @@ public class RestaurantSearch {
 
     public RestaurantSearch(String data, Restaurant[] restaurants) {
         setHotels();
+        this.data = data;
         this.restaurants = restaurants;
     }
 

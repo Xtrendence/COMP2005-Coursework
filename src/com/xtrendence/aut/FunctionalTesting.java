@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class FunctionalTesting {
     public int overallMethods;
     public int testedMethods;
+
     String data;
     Restaurant[] restaurants;
 

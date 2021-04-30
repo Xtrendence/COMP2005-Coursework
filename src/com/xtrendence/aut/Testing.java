@@ -49,6 +49,7 @@ public class Testing extends JFrame {
 
                 UnitTesting testing = new UnitTesting();
 
+                testing.testGetHotelCoordinatesByNeighborhood();
                 testing.testGetByCuisine();
                 testing.testGetByCuisineAndNeighborhood();
                 testing.testGetByDayAndHour();
