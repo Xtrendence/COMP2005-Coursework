@@ -95,6 +95,35 @@ public class Testing extends JFrame {
             }
         });
 
+        buttonStartIntegrationTests.addActionListener(actionEvent -> {
+            outputTests.setText("");
+
+            try {
+                outputText("--- Starting Integration Testing w/ Mock Object ---", Color.BLUE);
+
+                // Integration tests ensure that the different methods and parts of the software work together.
+                IntegrationTesting testing = new IntegrationTesting();
+
+                testing.testHotelDistanceFromRestaurant();
+                testing.testGetByNeighborhoodAndDayAndHour();
+                testing.testGetByNeighborhoodAndDayAndHourAndRating();
+                testing.testGetByVicinityAndCuisine();
+                testing.testGetByNeighborhoodAndCuisineAndRating();
+                testing.testGetByCuisineAndSortByScore();
+                testing.testGetByRatingAndSortByScore();
+
+                outputText("--- Finished Integration Testing w/ Mock Object ---", Color.BLUE);
+                outputText("--- Code Coverage & Results ---", Color.MAGENTA);
+                outputText("Overall Methods: " + testing.overallMethods, Color.BLACK);
+                outputText("Methods Tested: " + testing.testedMethods + " (" + (testing.testedMethods * 100) / testing.overallMethods + "%)", Color.BLACK);
+                outputText("Methods Passed: " + testing.passedMethods + " (" + (testing.passedMethods * 100) / testing.overallMethods + "%)", new Color(0, 150, 0));
+                outputText("Methods Failed: " + testing.failedMethods  + " (" + (100 - ((testing.passedMethods * 100) / testing.overallMethods)) + "%)", Color.RED);
+            } catch(Exception | Error e) {
+                outputText(e.getMessage(), Color.RED);
+                e.printStackTrace();
+            }
+        });
+
         buttonStartFunctionalTests.addActionListener(actionEvent -> {
             outputTests.setText("");
 
