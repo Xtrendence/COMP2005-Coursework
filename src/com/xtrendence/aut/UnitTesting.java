@@ -819,7 +819,7 @@ public class UnitTesting {
 
             actual = String.join(", ", names);
         } catch(NullPointerException e) {
-            actual = e.getMessage();
+            actual = null;
         }
 
         Testing.outputText("Expected: " + expected, Color.BLACK);
