@@ -18,3 +18,5 @@ You can either download an executable JAR file from the [Releases](https://githu
 |-------|--------------------------------------------------|
 |JUnit  |[JUnit Team](https://github.com/junit-team/junit4)|
 |Jackson|[FasterXML](https://github.com/FasterXML/jackson) |
+
+![GUI](https://i.imgur.com/34xrUDf.png)
