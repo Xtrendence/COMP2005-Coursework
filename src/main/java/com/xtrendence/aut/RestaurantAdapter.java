@@ -112,7 +112,9 @@ public class RestaurantAdapter {
         // Since some of the operating hours have the previous or next day as the value, this ensures those can be parsed.
         String[] abbreviations = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         // Most operating hours in the JSON have an "am" and "pm", so the parser works by taking that into account.
-        Map<Long, String> timeOfDay = Map.of(0L, " am", 1L, " pm");
+        HashMap<Long, String> timeOfDay = new HashMap<>();
+        timeOfDay.put(0L, " am");
+        timeOfDay.put(1L, " pm");
         // Although the data is in the format h:mm at times, this is later adjusted to ensure they're all hh:mm.
         DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm").appendText(ChronoField.AMPM_OF_DAY, timeOfDay).toFormatter();
 

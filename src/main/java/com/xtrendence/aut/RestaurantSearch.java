@@ -121,7 +121,9 @@ public class RestaurantSearch {
         List<Restaurant> list = new ArrayList<>();
         for(Restaurant restaurant : this.restaurants) {
             HashMap<String, LocalTime[]> hours = restaurant.getHours();
-            Map<Long, String> timeOfDay = Map.of(0L, " am", 1L, " pm");
+            HashMap<Long, String> timeOfDay = new HashMap<>();
+            timeOfDay.put(0L, " am");
+            timeOfDay.put(1L, " pm");
             DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm").appendText(ChronoField.AMPM_OF_DAY, timeOfDay).toFormatter();
             LocalTime[] openingHours = hours.get(day);
 
