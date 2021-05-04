@@ -123,17 +123,19 @@ public class Testing {
             System.out.println("startIntegrationTests");
             System.out.println("startFunctionalTests");
             System.out.println("\n");
-            System.out.println("If you're using a JAR, please run the command like so:");
-            System.out.println("Example: java -jar Headless.jar startUnitTests");
-            System.out.println("Example: java -jar Headless.jar startUnitTests edgeCases");
-            System.out.println("Example: java -jar Headless.jar startUnitTests edgeCases cornerCases");
-            System.out.println("Example: java -jar Headless.jar startFunctionalTests");
+            System.out.println("To run a command against the JAR file:");
+            System.out.println("Examples:");
+            System.out.println("java -jar Headless.jar startUnitTests");
+            System.out.println("java -jar Headless.jar startUnitTests edgeCases");
+            System.out.println("java -jar Headless.jar startUnitTests edgeCases cornerCases");
+            System.out.println("java -jar Headless.jar startFunctionalTests");
             System.out.println("\n");
             System.out.println("If you're running the project directly, simply type a method from the list above:");
-            System.out.println("Example: Please enter a command: startUnitTests");
-            System.out.println("Example: Please enter a command: startUnitTests edgeCases");
-            System.out.println("Example: Please enter a command: startUnitTests edgeCases cornerCases");
-            System.out.println("Example: Please enter a command: startFunctionalTests");
+            System.out.println("Examples:");
+            System.out.println("Please enter a command: startUnitTests");
+            System.out.println("Please enter a command: startUnitTests edgeCases");
+            System.out.println("Please enter a command: startUnitTests edgeCases cornerCases");
+            System.out.println("Please enter a command: startFunctionalTests");
             System.out.println("\n");
             getInput();
         } else {
