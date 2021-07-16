@@ -1,6 +1,6 @@
 # COMP2005 Coursework
 
-COMP2005 Coursework by Khodadad (Adrian) Nouchin. A desktop application written in Java that provides unit testing for an API which serves information regarding restaurants in New York City.
+COMP2005 Coursework by Khodadad (Adrian) Nouchin. A desktop application written in Java that provides unit testing for an API which serves information regarding restaurants in New York City. This project got 73/100.
 
 ### Download
 
